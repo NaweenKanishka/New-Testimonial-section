@@ -2,39 +2,42 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Testimonials</title>
+  <title>Testimonial Carousel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f9f9f9;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f2f5;
       margin: 0;
-      padding: 40px;
-    }
-
-    .testimonial-section {
+      padding: 50px 20px;
       display: flex;
       justify-content: center;
-      gap: 30px;
-      flex-wrap: wrap;
     }
 
-    .testimonial-card {
+    .carousel-container {
+      width: 100%;
+      max-width: 400px;
       background: #fff;
       border-radius: 16px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      padding: 30px 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      overflow: hidden;
       text-align: center;
-      max-width: 300px;
-      transition: transform 0.3s ease;
+      position: relative;
+      padding: 40px 20px;
     }
 
-    .testimonial-card:hover {
-      transform: translateY(-5px);
+    .testimonial {
+      display: none;
+      flex-direction: column;
+      align-items: center;
     }
 
-    .testimonial-image {
+    .testimonial.active {
+      display: flex;
+    }
+
+    .testimonial img {
       width: 100px;
       height: 100px;
       border-radius: 50%;
@@ -49,45 +52,98 @@
 
     .customer-name {
       font-weight: bold;
-      margin-bottom: 10px;
       font-size: 1.1em;
+      margin-bottom: 10px;
     }
 
     .review-text {
-      font-size: 0.95em;
       color: #555;
+      font-size: 0.95em;
+      padding: 0 10px;
+    }
+
+    .nav-buttons {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      padding: 0 15px;
+    }
+
+    .nav-buttons i {
+      font-size: 24px;
+      cursor: pointer;
+      color: #888;
+      transition: color 0.3s;
+    }
+
+    .nav-buttons i:hover {
+      color: #000;
     }
   </style>
 </head>
 <body>
 
-  <section class="testimonial-section">
-    <div class="testimonial-card">
-      <img src="https://via.placeholder.com/100" alt="Customer 1" class="testimonial-image">
+  <div class="carousel-container">
+    <div class="testimonial active">
+      <img src="IMG-20250203-WA0003.jpg" alt="Customer 1">
       <div class="stars">
-        <i class="fas fa-star"></i>
-        <i class="fas fa-star"></i>
-        <i class="fas fa-star"></i>
-        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+        <i class="fas fa-star"></i><i class="fas fa-star"></i>
         <i class="fas fa-star"></i>
       </div>
       <div class="customer-name">John Doe</div>
-      <div class="review-text">Absolutely loved the service! Highly recommended for anyone seeking quality.</div>
+      <div class="review-text">Amazing experience! Will definitely recommend to friends and family.</div>
     </div>
 
-    <div class="testimonial-card">
-      <img src="https://via.placeholder.com/100" alt="Customer 2" class="testimonial-image">
+    <div class="testimonial">
+      <img src="IMG-20250203-WA0003.jpg" alt="Customer 2">
       <div class="stars">
-        <i class="fas fa-star"></i>
-        <i class="fas fa-star"></i>
-        <i class="fas fa-star"></i>
-        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+        <i class="fas fa-star"></i><i class="fas fa-star"></i>
         <i class="fas fa-star"></i>
       </div>
       <div class="customer-name">Jane Smith</div>
-      <div class="review-text">Great experience! Friendly support and fast turnaround time. Will come again.</div>
+      <div class="review-text">Loved the quality and the customer service was top-notch!</div>
     </div>
-  </section>
+
+    <div class="testimonial">
+      <img src="IMG-20250203-WA0003.jpg" alt="Customer 3">
+      <div class="stars">
+        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+      </div>
+      <div class="customer-name">Mike Johnson</div>
+      <div class="review-text">Great value for money. The whole process was smooth and easy.</div>
+    </div>
+
+    <div class="nav-buttons">
+      <i class="fas fa-chevron-left" onclick="changeSlide(-1)"></i>
+      <i class="fas fa-chevron-right" onclick="changeSlide(1)"></i>
+    </div>
+
+  </div>
+
+  <script>
+    let currentIndex = 0;
+    const testimonials = document.querySelectorAll('.testimonial');
+
+    function showSlide(index) {
+      testimonials.forEach((item, i) => {
+        item.classList.toggle('active', i === index);
+      });
+    }
+
+    function changeSlide(direction) {
+      currentIndex += direction;
+      if (currentIndex < 0) currentIndex = testimonials.length - 1;
+      if (currentIndex >= testimonials.length) currentIndex = 0;
+      showSlide(currentIndex);
+    }
+  </script>
 
 </body>
 </html>
